@@ -1,0 +1,37 @@
+ClearMark Ai — START HERE
+
+This ZIP contains the complete editable website: HTML, CSS, JavaScript,
+watermark-processing code, icon, reference analysis, and instructions.
+No npm install, API key, paid service, or build step is required.
+
+RUN ON YOUR COMPUTER
+1. Extract the ZIP completely.
+2. Make sure Python 3 is installed.
+3. Open a terminal in the extracted ClearMark-Ai folder.
+4. Windows: run  py -3 start_server.py
+   macOS / Linux: run  python3 start_server.py
+5. Open http://localhost:8000 in your browser if it does not open automatically.
+6. Press Ctrl+C in the terminal to stop the server.
+
+Do not open dist/index.html by double-clicking: JavaScript modules need a
+local web server. The included server listens only on your own computer.
+
+HOST ON YOUR OWN WEBSITE
+Upload the CONTENTS of the dist folder to any static host that supports HTTPS.
+index.html, styles.css, app.mjs, engine.mjs, and favicon.svg must stay together.
+The host should serve .mjs files as JavaScript (text/javascript).
+No original private Site identifiers, credentials, or Git history are included.
+
+USE THE EDITOR
+Choose Image or Video, add your file, move the box over the visible watermark,
+choose a removal method, compare the preview, then download a new copy.
+Use Try a sample to explore without uploading a file.
+
+LIMITS
+Selection is manual. Blending and copying estimate the covered area and may
+show artifacts. Cropping changes dimensions. There is no moving-mark tracking
+or invisible watermark removal. Images: up to 30 MB and 24 megapixels.
+Videos: up to 250 MB / 90 seconds; browser-dependent MP4 or WebM exports,
+up to 30 fps and 1920 pixels on the longest side. Keep the tab visible during
+video export. Video playback and encoding have not been browser-tested.
+Use media you own or have permission to edit. See README.md for details.

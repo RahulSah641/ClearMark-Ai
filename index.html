@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="Edit visible watermarks on your own images and short videos. Select an area, compare the result, and download. Your media stays in your browser.">
+  <title>ClearMark Ai — Image & video watermark editor</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to editor</a>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-frame" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m12-6h4a2 2 0 0 1 2 2v4M3 15v4a2 2 0 0 0 2 2h4m6 0h4a2 2 0 0 0 2-2v-4M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="3"/><path d="m16 10 5-3v10l-5-3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 9M3 4v6h6"/></symbol>
+    <symbol id="i-select" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m8 0h5v-5M3 11v2m8-10h2m8 8v2m-10 8h2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></symbol>
+  </defs></svg>
+  <header class="topbar">
+    <a href="./" class="brand" aria-label="ClearMark Ai home"><span class="brand-mark"><svg><use href="#i-frame"/></svg></span><span>clearframe<span class="brand-suffix">studio</span></span></a>
+    <nav aria-label="Main navigation"><a class="nav-active" href="#workspace">Editor</a><a href="#how-it-works">How it works</a><a href="#faq">Questions</a></nav>
+    <span class="private-badge"><svg><use href="#i-lock"/></svg>Files stay on your device</span>
+  </header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">YOUR MEDIA. A CLEANER FINISH.</div><h1>A little less watermark.<br class="mobile-break"> A little more you.</h1><p>Remove visible marks from images and short videos you own.</p></div><span class="local-pill"><span></span>Runs in your browser</span></div>
+    <section class="workspace" id="workspace" aria-label="Watermark editor">
+      <div class="workspace-top"><div class="media-tabs" role="group" aria-label="Media type"><button class="media-tab active" id="image-tab" data-kind="image" aria-pressed="true"><svg><use href="#i-image"/></svg>Image</button><button class="media-tab" id="video-tab" data-kind="video" aria-pressed="false"><svg><use href="#i-video"/></svg>Video</button></div><div class="steps" aria-label="Your progress"><span id="step-1" class="step current"><b>1</b> Add file</span><i></i><span id="step-2" class="step"><b>2</b> Select mark</span><i></i><span id="step-3" class="step"><b>3</b> Download</span></div></div>
+      <div class="editor-grid">
+        <aside class="controls" aria-label="Editing controls">
+          <div class="control-group"><div class="control-title"><span class="number">01</span><h2>Choose your file</h2></div>
+            <button class="file-button" id="choose-file"><svg><use href="#i-upload"/></svg><span id="file-button-label">Upload an image</span><span class="plus">+</span></button>
+            <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp" hidden>
+            <p class="micro" id="format-note">PNG, JPG or WebP · up to 30 MB</p>
+            <div class="selected-file" id="selected-file" hidden><svg><use href="#i-image"/></svg><div><strong id="file-name"></strong><span id="file-meta"></span></div><button class="icon-button" id="clear-file" aria-label="Remove current file"><svg><use href="#i-close"/></svg></button></div>
+          </div>
+          <div class="control-group"><div class="control-title"><span class="number">02</span><h2>Select the watermark</h2></div>
+            <span class="field-label">Start with a position preset</span><div class="presets" role="group" aria-label="Watermark position preset"><button class="preset active" data-preset="gemini" aria-pressed="true">Gemini</button><button class="preset" data-preset="veo" aria-pressed="false">Veo</button><button class="preset" data-preset="omni" aria-pressed="false">Omni</button><button class="preset" data-preset="custom" aria-pressed="false">Custom</button></div>
+            <p class="micro">Presets place the box. Adjust it to cover your mark.</p>
+            <fieldset id="selection-controls" disabled><legend class="sr-only">Watermark selection</legend>
+              <button class="outline-button full" id="draw-selection"><svg><use href="#i-select"/></svg>Draw a selection</button>
+              <details class="fine-controls"><summary>Fine-tune position <span>+</span></summary><div class="coordinate-grid"><label>Left %<input id="rect-x" type="number" min="0" max="99" step="0.1" value="87"></label><label>Top %<input id="rect-y" type="number" min="0" max="99" step="0.1" value="84"></label><label>Width %<input id="rect-w" type="number" min="1" max="80" step="0.1" value="10"></label><label>Height %<input id="rect-h" type="number" min="1" max="80" step="0.1" value="12"></label></div></details>
+              <label class="field-label" for="method">How to remove it</label><select id="method"><option value="blend">Blend surrounding area</option><option value="clone">Copy a nearby area</option><option value="crop">Crop the closest edge</option></select>
+              <p class="micro" id="method-note">Best for small marks on simple backgrounds. Fine detail may soften.</p>
+              <div id="clone-controls" hidden><label class="field-label" for="clone-direction">Copy from</label><select id="clone-direction"><option value="left">Left of the selection</option><option value="above">Above the selection</option><option value="right">Right of the selection</option><option value="below">Below the selection</option></select><p class="micro">The dashed box shows the source area.</p></div>
+              <div id="feather-control"><label class="range-label" for="feather">Edge softness <output id="feather-value">8%</output></label><input id="feather" type="range" min="0" max="30" step="1" value="8"></div>
+            </fieldset>
+          </div>
+          <div class="export-group"><div class="export-heading"><h2>Ready when you are</h2><span id="output-type">PNG</span></div><p class="micro" id="export-note">Full image dimensions. Preview before saving.</p><button class="primary-button full" id="export" disabled><svg><use href="#i-download"/></svg><span id="export-label">Download image</span></button><button class="text-button reset-button" id="reset" disabled><svg><use href="#i-reset"/></svg>Reset edits</button>
+            <div id="export-progress" hidden><div class="progress-caption"><span id="progress-label">Preparing…</span><button id="cancel-export" class="text-button">Cancel</button></div><progress id="progress" max="100" value="0"></progress><p class="micro">Keep this tab visible until the export finishes.</p></div>
+            <div class="download-ready" id="download-ready" hidden><svg><use href="#i-check"/></svg><div>Your file is ready.<a id="download-link" download>Save file</a></div></div>
+          </div>
+        </aside>
+        <div class="canvas-panel">
+          <div class="preview-toolbar"><span class="preview-label"><span class="tiny-frame"></span>Your workspace</span><div class="view-switch" role="group" aria-label="Preview mode"><button data-view="original" class="active" aria-pressed="true" disabled>Original</button><button data-view="result" aria-pressed="false" disabled>Result</button><button data-view="compare" aria-pressed="false" disabled>Compare</button></div></div>
+          <div id="drop-zone" class="drop-zone"><div class="drop-content"><div class="upload-symbol"><svg><use href="#i-image"/></svg><span><svg><use href="#i-upload"/></svg></span></div><h2 id="drop-title">Give your image a fresh start.</h2><p>Drop a file here, or choose one from your device.</p><button class="primary-button" id="browse"><svg><use href="#i-upload"/></svg><span id="browse-label">Choose image</span></button><span class="drop-formats" id="drop-formats">PNG · JPG · WebP</span><div class="demo-line">Just looking around? <button class="text-button" id="try-demo">Try a sample <svg><use href="#i-arrow"/></svg></button></div></div><span class="corner corner-tl"></span><span class="corner corner-tr"></span><span class="corner corner-bl"></span><span class="corner corner-br"></span></div>
+          <div class="stage-area" id="stage-area" hidden><div id="stage" class="stage"><canvas id="preview" aria-label="Media preview"></canvas><div id="selection" class="selection" tabindex="0" role="group" aria-label="Watermark area. Drag to move, use arrow keys to adjust, or fine-tune position in the controls."><span class="selection-tag">Watermark</span><span class="selection-handle" data-resize="true" aria-hidden="true"></span></div><div id="clone-box" class="clone-box" hidden><span>Copy from here</span></div><span id="before-label" class="canvas-label before-label" hidden>Original</span><span id="after-label" class="canvas-label after-label" hidden>Result</span><div id="compare-line" class="compare-line" hidden><span>↔</span></div></div>
+            <div class="compare-control" id="compare-control" hidden><label for="compare-range">Original</label><input type="range" id="compare-range" min="0" max="100" value="50" aria-label="Before and after comparison"><span>Result</span></div>
+            <div class="video-controls" id="video-controls" hidden><button id="video-play" class="icon-button" aria-label="Play preview"><svg><use href="#i-play"/></svg></button><input type="range" id="video-seek" min="0" max="1000" value="0" aria-label="Video position"><span id="video-time">0:00 / 0:00</span></div>
+          </div>
+          <div class="canvas-bottom"><span id="canvas-tip"><svg><use href="#i-select"/></svg>Small selection. Better result.</span><span id="dimension-label">Nothing uploaded yet</span></div>
+          <div class="privacy-note"><svg><use href="#i-lock"/></svg><p>Your media stays here.<span> Editing happens on your device; files are not uploaded.</span></p></div>
+          <div class="message" id="message" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </section>
+    <section id="how-it-works" class="how-section" aria-label="How it works"><div class="how-card"><span>01</span><div><h3>Bring your own media</h3><p>Add an image or a short video from Gemini, Veo, Omni, or another tool.</p></div></div><div class="how-card"><span>02</span><div><h3>Frame the visible mark</h3><p>Move the box over the watermark. Keep the selection small and precise.</p></div></div><div class="how-card"><span>03</span><div><h3>Compare, then keep</h3><p>Check the result, adjust if needed, and save a new copy.</p></div></div></section>
+    <section class="faq-section" id="faq"><div class="faq-intro"><div class="eyebrow">A FEW HELPFUL ANSWERS</div><h2>Clear expectations.<br>Better results.</h2><p>Simple tools, with no hidden promises.</p></div><div class="faq-list">
+      <details><summary>Does this work with Gemini, Veo, and Omni?<span>+</span></summary><p>You can open supported images and short videos downloaded from those tools. Presets suggest a corner selection; they do not detect or identify a model’s watermark. Move the box over the visible mark and choose a removal method. Only one fixed area is edited at a time. Moving marks need a different workflow.</p></details>
+      <details><summary>Will the result look exactly like the original?<span>+</span></summary><p>Not always. Blending estimates the selected area from nearby pixels, and copying replaces it with a nearby patch. Detailed or moving backgrounds can show artifacts. Cropping removes an edge of the frame. Check the result before downloading; there is no guarantee of lossless watermark restoration.</p></details>
+      <details><summary>Which files can I use and download?<span>+</span></summary><p>Images: PNG, JPG, and WebP up to 30 MB and 24 megapixels. Images download as PNG at their original dimensions unless cropped. Animated images are exported as a single still frame. Videos: browser-decodable MP4, WebM, and MOV, up to 250 MB and 90 seconds. Exports are re-encoded at up to 30 fps and 1920 pixels on the longest edge, as MP4 when supported or WebM otherwise. Keep the tab visible during video export. Original audio is included when your browser can decode it; it is re-encoded too. Container support varies by browser and codec.</p></details>
+      <details><summary>What happens to invisible AI watermarks?<span>+</span></summary><p>This editor targets visible marks only. It does not detect or intentionally remove invisible systems such as SynthID, and it does not certify whether exported media contains them. Image and video exports may not retain original metadata or content credentials.</p></details>
+      <details><summary>What about privacy and permission?<span>+</span></summary><p>Your selected files are processed in this browser session. The editor has no media-upload endpoint, third-party analytics, or external editing service. Hosting and access services may keep normal service logs. Use media you own or have permission to edit, and follow the source service’s terms. Removing a visible mark does not give you rights to the underlying content.</p></details>
+    </div></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark"><svg><use href="#i-frame"/></svg></span><span>clearframe<span class="brand-suffix">studio</span></span></a><p>Made for your media. Use it with permission.</p><button class="text-button" id="about-button">About this editor</button></footer>
+  <dialog id="about-dialog"><div class="dialog-heading"><h2>About ClearMark Ai</h2><button id="close-about" class="icon-button" aria-label="Close"><svg><use href="#i-close"/></svg></button></div><p>An independent, browser-based editor for visible watermarks on media you have permission to edit.</p><p>Gemini, Veo, and Omni are names used to describe input sources. This tool is not affiliated with or endorsed by Google or those products.</p><p>Edits are estimates and exports can change metadata. This tool provides no guarantee of restoration quality or legal clearance for your use of a file.</p></dialog>
+  <noscript><p class="noscript">Please enable JavaScript to edit files in your browser.</p></noscript>
+</body>
+</html>
