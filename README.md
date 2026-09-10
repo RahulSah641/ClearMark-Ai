@@ -18,7 +18,7 @@ The fill uses a Coons surface estimated from the four boundaries. It can reconst
 
 The same fixed area is edited on each video frame. There is no moving-logo tracking or temporal inpainting. Keep the browser tab visible: hiding it cancels recording instead of knowingly delivering a throttled/incomplete output. The downloaded video must be reviewed for artifacts and audio. Browser codec support and performance vary; UI checks capabilities but cannot guarantee every source codec or device. Silent sources may produce a silent audio track. Exports do not promise to retain metadata or C2PA credentials, and do not detect or intentionally remove invisible watermarks.
 
-## Reference analysis — 9 September 2026
+## Reference analysis 
 
 Reference: https://ishara-madu.github.io/gemini-watermark-remover/
 
